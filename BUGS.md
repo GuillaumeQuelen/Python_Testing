@@ -13,7 +13,7 @@
 ## Fonctionnalité
 | Fonctionnalité | Branche | Statut |
 |----------------|---------|--------|
-| Tableau public des points des clubs (`/points`) | feature/points-board | en cours |
+| Tableau public des points des clubs (`/points`) | feature/points-board | corrigé, fusionné |
 
 ## Méthode pour chaque bug
 1. Reproduire à la main
