@@ -48,3 +48,12 @@ def test_cannot_book_a_past_competition(client):
 def test_cannot_open_booking_page_of_past_competition(client):
     response = client.get('/book/Old%20Cup/Rich%20Club')
     assert b"This competition is over: booking is closed." in response.data
+
+def test_book_unknown_competition_shows_message(client):
+    response = client.get('/book/Nope/Rich%20Club')
+    assert b"Something went wrong-please try again" in response.data
+
+
+def test_book_unknown_club_shows_message(client):
+    response = client.get('/book/Future%20Cup/Nobody')
+    assert b"Something went wrong-please try again" in response.data

@@ -44,16 +44,17 @@ def showSummary():
 
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
-    foundClub = [c for c in clubs if c['name'] == club][0]
-    foundCompetition = [c for c in competitions if c['name'] == competition][0]
+    foundClubs = [c for c in clubs if c['name'] == club]
+    foundCompetitions = [c for c in competitions if c['name'] == competition]
+    if not foundClubs or not foundCompetitions:
+        flash("Something went wrong-please try again")
+        return render_template('index.html')
+    foundClub = foundClubs[0]
+    foundCompetition = foundCompetitions[0]
     if is_past(foundCompetition):
         flash("This competition is over: booking is closed.")
         return render_template('welcome.html', club=foundClub, competitions=competitions)
-    if foundClub and foundCompetition:
-        return render_template('booking.html', ...)
-    else:
-        flash("Something went wrong-please try again")
-        return render_template('welcome.html', ...)
+    return render_template('booking.html', club=foundClub, competition=foundCompetition)
 
 
 @app.route('/purchasePlaces', methods=['POST'])
