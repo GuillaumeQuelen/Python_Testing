@@ -9,11 +9,11 @@
             "name": "Fall Classic",
             "date": "2020-10-22 13:30:00",
             "numberOfPlaces": "13"
-        }
+        },
         {
-        "name": "Winter Open",
-        "date": "2030-03-01 10:00:00",
-        "numberOfPlaces": "25"
+            "name": "Winter Open",
+            "date": "2030-03-01 10:00:00",
+            "numberOfPlaces": "25"
         }
     ]
 }
