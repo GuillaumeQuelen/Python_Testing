@@ -13,6 +13,7 @@ def fake_data(monkeypatch):
     competitions = [
             {"name": "Future Cup", "date": "2099-01-01 10:00:00", "numberOfPlaces": "25"},
             {"name": "Small Cup", "date": "2099-01-01 10:00:00", "numberOfPlaces": "3"},
+            {"name": "Old Cup", "date": "2020-01-01 10:00:00", "numberOfPlaces": "25"},
         ]
     monkeypatch.setattr(server, "clubs", clubs)
     monkeypatch.setattr(server, "competitions", competitions)

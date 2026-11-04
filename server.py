@@ -1,5 +1,6 @@
 import json
 from flask import Flask,render_template,request,redirect,flash,url_for
+from datetime import datetime
 
 MAX_PLACES_PER_COMPETITION = 12
 
@@ -20,6 +21,12 @@ app.secret_key = 'something_special'
 
 competitions = loadCompetitions()
 clubs = loadClubs()
+bookings = {}
+
+
+def is_past(competition):
+    date = datetime.strptime(competition['date'], "%Y-%m-%d %H:%M:%S")
+    return date < datetime.now()
 
 @app.route('/')
 def index():
@@ -36,11 +43,14 @@ def showSummary():
 
 
 @app.route('/book/<competition>/<club>')
-def book(competition,club):
+def book(competition, club):
     foundClub = [c for c in clubs if c['name'] == club][0]
     foundCompetition = [c for c in competitions if c['name'] == competition][0]
+    if is_past(foundCompetition):
+        flash("This competition is over: booking is closed.")
+        return render_template('welcome.html', club=foundClub, competitions=competitions)
     if foundClub and foundCompetition:
-        return render_template('booking.html',club=foundClub,competition=foundCompetition)
+        return render_template('booking.html', club=foundClub, competition=foundCompetition)
     else:
         flash("Something went wrong-please try again")
         return render_template('welcome.html', club=club, competitions=competitions)
@@ -50,6 +60,9 @@ def book(competition,club):
 def purchasePlaces():
     competition = [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
+    if is_past(competition):
+        flash("This competition is over: booking is closed.")
+        return render_template('welcome.html', club=club, competitions=competitions)
     placesRequired = int(request.form['places'])
     key = (competition['name'], club['name'])
     already_booked = bookings.get(key, 0)

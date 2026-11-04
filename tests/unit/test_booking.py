@@ -35,3 +35,16 @@ def test_cannot_book_more_than_12_places_in_total(client):
     client.post('/purchasePlaces', data=data)
     response = client.post('/purchasePlaces', data=data)
     assert b"You cannot book more than 12 places per competition." in response.data
+
+def test_cannot_book_a_past_competition(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Old Cup',
+        'club': 'Rich Club',
+        'places': '1',
+    })
+    assert b"This competition is over: booking is closed." in response.data
+
+
+def test_cannot_open_booking_page_of_past_competition(client):
+    response = client.get('/book/Old%20Cup/Rich%20Club')
+    assert b"This competition is over: booking is closed." in response.data
