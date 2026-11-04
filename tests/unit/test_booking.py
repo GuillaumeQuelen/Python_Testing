@@ -21,3 +21,11 @@ def test_cannot_book_more_places_than_available(client):
         'places': '5',
     })
     assert b"Not enough places left in this competition." in response.data
+
+def test_cannot_book_more_than_12_places(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Future Cup',
+        'club': 'Rich Club',
+        'places': '13',
+    })
+    assert b"You cannot book more than 12 places per competition." in response.data
