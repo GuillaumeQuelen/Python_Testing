@@ -16,7 +16,7 @@ def fake_data(monkeypatch):
         ]
     monkeypatch.setattr(server, "clubs", clubs)
     monkeypatch.setattr(server, "competitions", competitions)
-
+    monkeypatch.setattr(server, "bookings", {}, raising=False)
 
 @pytest.fixture
 def client():
