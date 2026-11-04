@@ -5,3 +5,11 @@ def test_cannot_book_more_places_than_points(client):
         'places': '10',
     })
     assert b"You do not have enough points." in response.data
+
+def test_points_are_deducted_after_booking(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Future Cup',
+        'club': 'Poor Club',
+        'places': '3',
+    })
+    assert b"Points available: 1" in response.data
