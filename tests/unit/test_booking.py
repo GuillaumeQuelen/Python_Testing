@@ -1,3 +1,5 @@
+import pytest
+
 def test_cannot_book_more_places_than_points(client):
     response = client.post('/purchasePlaces', data={
         'competition': 'Future Cup',
@@ -57,3 +59,13 @@ def test_book_unknown_competition_shows_message(client):
 def test_book_unknown_club_shows_message(client):
     response = client.get('/book/Future%20Cup/Nobody')
     assert b"Something went wrong-please try again" in response.data
+
+
+@pytest.mark.parametrize("places", ["", "abc", "0", "-3"])
+def test_invalid_places_are_refused(client, places):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Future Cup',
+        'club': 'Rich Club',
+        'places': places,
+    })
+    assert b"Please enter a valid number of places." in response.data

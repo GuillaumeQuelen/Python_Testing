@@ -64,7 +64,13 @@ def purchasePlaces():
     if is_past(competition):
         flash("This competition is over: booking is closed.")
         return render_template('welcome.html', club=club, competitions=competitions)
-    placesRequired = int(request.form['places'])
+    try:
+        placesRequired = int(request.form['places'])
+    except ValueError:
+        placesRequired = 0
+    if placesRequired <= 0:
+        flash("Please enter a valid number of places.")
+        return render_template('welcome.html', club=club, competitions=competitions)
     key = (competition['name'], club['name'])
     already_booked = bookings.get(key, 0)
     if placesRequired + already_booked > MAX_PLACES_PER_COMPETITION:

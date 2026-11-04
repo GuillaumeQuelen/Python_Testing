@@ -10,6 +10,7 @@
 | 6 | Plus de 12 places au total en plusieurs réservations | Réserver 8 puis encore 8 places | bug/max-12-cumulative | corrigé, fusionné |
 | 7 | Réserver une compétition déjà passée | Spring Festival et Fall Classic sont datées de 2020 | bug/past-competitions | corrigé, fusionné |
 | 8 | Page de réservation avec un club ou une compétition inconnu : erreur 500 (IndexError) | Ouvrir /book/Nope/Iron%20Temple | bug/book-unknown-names | corrigé, fusionné |
+| 9 | Places vides, non numériques, nulles ou négatives (erreur 500 ou points gagnés) | Saisir -3 dans le champ des places | bug/invalid-places | corrigé, fusionné |
 
 ## Fonctionnalité
 | Fonctionnalité | Branche | Statut |
