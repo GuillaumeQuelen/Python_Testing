@@ -1,24 +1,26 @@
 import json
-from flask import Flask,render_template,request,redirect,flash,url_for
+from flask import Flask, render_template, request, redirect, flash, url_for
 from datetime import datetime
 import os
 
 MAX_PLACES_PER_COMPETITION = 12
 
+
 def loadClubs():
     with open('clubs.json') as c:
-         listOfClubs = json.load(c)['clubs']
-         return listOfClubs
+        listOfClubs = json.load(c)['clubs']
+        return listOfClubs
 
 
 def loadCompetitions():
     with open('competitions.json') as comps:
-         listOfCompetitions = json.load(comps)['competitions']
-         return listOfCompetitions
+        listOfCompetitions = json.load(comps)['competitions']
+        return listOfCompetitions
 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-only-key')
+
 
 competitions = loadCompetitions()
 clubs = loadClubs()
@@ -29,9 +31,11 @@ def is_past(competition):
     date = datetime.strptime(competition['date'], "%Y-%m-%d %H:%M:%S")
     return date < datetime.now()
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():

@@ -8,7 +8,7 @@ def fake_data(monkeypatch):
     clubs = [
         {"name": "Poor Club", "email": "poor@test.com", "points": "4"},
         {"name": "Rich Club", "email": "rich@test.com", "points": "30"},
-    
+
     ]
     competitions = [
             {"name": "Future Cup", "date": "2099-01-01 10:00:00", "numberOfPlaces": "25"},
@@ -18,6 +18,7 @@ def fake_data(monkeypatch):
     monkeypatch.setattr(server, "clubs", clubs)
     monkeypatch.setattr(server, "competitions", competitions)
     monkeypatch.setattr(server, "bookings", {})
+
 
 @pytest.fixture
 def client():

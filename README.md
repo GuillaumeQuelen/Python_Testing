@@ -70,3 +70,11 @@ locust -f tests/performance/locustfile.py --host http://127.0.0.1:5000 --users 6
 ## Anomalies corrigées
 
 Voir `BUGS.md`.
+
+### Qualité du code
+
+```bash
+flake8
+```
+
+La configuration est dans `.flake8` (lignes de 119 caractères maximum).
