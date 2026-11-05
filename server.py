@@ -1,6 +1,7 @@
 import json
 from flask import Flask,render_template,request,redirect,flash,url_for
 from datetime import datetime
+import os
 
 MAX_PLACES_PER_COMPETITION = 12
 
@@ -17,7 +18,7 @@ def loadCompetitions():
 
 
 app = Flask(__name__)
-app.secret_key = 'something_special'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-only-key')
 
 competitions = loadCompetitions()
 clubs = loadClubs()

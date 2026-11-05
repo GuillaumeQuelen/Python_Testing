@@ -29,6 +29,16 @@ Puis ouvrir http://127.0.0.1:5000. Exemple d'email : `john@simplylift.co`. Le ta
 - on ne peut pas réserver une compétition déjà passée ;
 - les points sont déduits après chaque réservation (1 place = 1 point).
 
+## Configuration
+
+La clé secrète de Flask se lit dans la variable d'environnement `SECRET_KEY` :
+
+```bash
+export SECRET_KEY=$(python -c "import secrets; print(secrets.token_hex(32))")
+```
+
+Sans elle, une clé de développement est utilisée : ne pas mettre le site en ligne ainsi.
+
 ## Tests
 
 ```bash
