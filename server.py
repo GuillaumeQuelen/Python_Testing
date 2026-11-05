@@ -59,8 +59,13 @@ def book(competition, club):
 
 @app.route('/purchasePlaces', methods=['POST'])
 def purchasePlaces():
-    competition = [c for c in competitions if c['name'] == request.form['competition']][0]
-    club = [c for c in clubs if c['name'] == request.form['club']][0]
+    foundCompetitions = [c for c in competitions if c['name'] == request.form['competition']]
+    foundClubs = [c for c in clubs if c['name'] == request.form['club']]
+    if not foundCompetitions or not foundClubs:
+        flash("Something went wrong-please try again")
+        return render_template('index.html')
+    competition = foundCompetitions[0]
+    club = foundClubs[0]
     if is_past(competition):
         flash("This competition is over: booking is closed.")
         return render_template('welcome.html', club=club, competitions=competitions)

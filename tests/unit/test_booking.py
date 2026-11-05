@@ -69,3 +69,21 @@ def test_invalid_places_are_refused(client, places):
         'places': places,
     })
     assert b"Please enter a valid number of places." in response.data
+
+def test_purchase_unknown_competition_shows_message(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Nope',
+        'club': 'Rich Club',
+        'places': '1',
+    })
+    assert b"Something went wrong-please try again" in response.data
+
+
+def test_purchase_unknown_club_shows_message(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Future Cup',
+        'club': 'Nobody',
+        'places': '1',
+    })
+    assert b"Something went wrong-please try again" in response.data
+    
